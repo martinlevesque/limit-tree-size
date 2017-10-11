@@ -1,0 +1,36 @@
+{
+  "name": "limit-tree-size",
+  "version": "1.0.3",
+  "description": "Limit tree size",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha"
+  },
+  "bin": {
+    "limit-dirs": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinlevesque/limit-dirs.git"
+  },
+  "keywords": [
+    "directory",
+    "quota",
+    "folder"
+  ],
+  "author": "Martin Lévesque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinlevesque/limit-dirs/issues"
+  },
+  "homepage": "https://github.com/martinlevesque/limit-dirs#readme",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "directory-tree": "^2.0.0",
+    "get-folder-size": "^1.0.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^4.0.1"
+  }
+}
