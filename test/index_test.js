@@ -3,7 +3,6 @@ const fs = require("fs");
 const LimitTreeSize = require("../index");
 const proc = require('child_process');
 const path = require('path');
-const rmDir = require("rimraf");
 
 function genAndWriteFile(bytes, pathTo) {
   let s = "";
