@@ -1,4 +1,3 @@
-const watch = require("watch");
 const fs = require("fs");
 const path = require("path");
 const getFSize = require("get-folder-size");
