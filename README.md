@@ -2,8 +2,6 @@
 
 [![NPM](https://nodei.co/npm/limit-tree-size.png)](https://nodei.co/npm/limit-tree-size/)
 
-[![Build status](https://travis-ci.org/martinlevesque/limit-tree-size.svg?branch=master)](https://travis-ci.org/martinlevesque/limit-tree-size)
-
 limit-tree-size allows to limit directories sizes by polling a set of predefined
 folder paths.
 
