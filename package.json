@@ -1,13 +1,13 @@
 {
   "name": "limit-tree-size",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Limit tree size",
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha"
   },
   "bin": {
-    "limit-dirs": "./bin/index.js"
+    "limit-tree-size": "./bin/index.js"
   },
   "repository": {
     "type": "git",
