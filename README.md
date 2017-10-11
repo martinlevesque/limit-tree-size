@@ -1,8 +1,8 @@
 # limit-tree-size
 
-[![NPM](https://nodei.co/npm/limit-dirs.png)](https://nodei.co/npm/limit-dirs/)
+[![NPM](https://nodei.co/npm/limit-tree-size.png)](https://nodei.co/npm/limit-tree-size/)
 
-[![Build status](https://travis-ci.org/martinlevesque/limit-dirs.svg?branch=master)](https://travis-ci.org/martinlevesque/limit-dirs)
+[![Build status](https://travis-ci.org/martinlevesque/limit-tree-size.svg?branch=master)](https://travis-ci.org/martinlevesque/limit-tree-size)
 
 limit-tre-size allows to limit directories sizes by polling a set of predefined
 folder paths.
@@ -12,7 +12,7 @@ folder paths.
 ### Install
 
 ```
-npm install limit-dirs --save
+npm install limit-tree-size --save
 ```
 
 ### With fixed folders
@@ -20,9 +20,9 @@ npm install limit-dirs --save
 First we need to instantiate a LimitDirs:
 
 ```
-const LimitDirs = require("limit-dirs");
+const LimitTreeSize = require("limit-dirs");
 
-const dirLimiter = new LimitDirs(
+const dirLimiter = new LimitTreeSize(
   {
     "forceDirs": [{
       "dir": "./test/repos-test/basic/",
@@ -45,10 +45,10 @@ is larger than 5 MB, the file will be deleted.
 
 ### Automatic Subdir discovery
 
-First let's instantiate a LimitDirs:
+First let's instantiate a LimitTreeSize:
 
 ```
-const dirLimiter = new LimitDirs(
+const dirLimiter = new LimitTreeSize(
   {
     "rootDir": "./test/repos-test/websites/",
     "level": 2,
@@ -78,13 +78,13 @@ subdirectories.
 ## Command Line Interface
 
 ```
-npm install -g limit-dirs
+npm install -g limit-tree-size
 ```
 
 The command line usage is the following:
 
 ```
-limit-dirs launch --rootDir <rootDir> --level <level> --intervalAutoScan <intervalAutoScan> --defaultLimitMB <defaultLimitMB> --verbose <verbose>
+limit-tree-size launch --rootDir <rootDir> --level <level> --intervalAutoScan <intervalAutoScan> --defaultLimitMB <defaultLimitMB> --verbose <verbose>
 ```
 
 ## License
