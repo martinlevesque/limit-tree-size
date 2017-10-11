@@ -93,7 +93,7 @@ class LimitTreeSize {
           this._getFoldersWithLevel(dirTree(this.rootDir), this.level, 0, []);
 
         for (let dir of dirsWithLevel) {
-          if ( ! this.activatedWatches[dir]) {
+          if ( ! this.activatedWatches[dir.path]) {
             this._activateWatch(dir.path, this.defaultLimitMB);
           }
         }
