@@ -23,7 +23,8 @@ class LimitTreeSize {
       this._activateWatch(d.dir, d.limitMB);
     }
 
-    if (this.autoDiscoverNewSubDirs) {
+    // scan on start!
+    this._scanRoot().then(() => {
       this.objIntervalAutoScan = setInterval(() => {
         this._scanRoot().then(() => {
 
@@ -31,6 +32,14 @@ class LimitTreeSize {
           this._log(err);
         });
       }, this.intervalAutoScan * 1000);
+    }).catch((err) => {
+      this._log(err);
+    });
+  }
+
+  stop() {
+    if (this.objIntervalAutoScan) {
+      clearInterval(this.objIntervalAutoScan);
     }
   }
 
@@ -80,12 +89,14 @@ class LimitTreeSize {
 
   async _scanRoot() {
     try {
-      let dirsWithLevel =
-        this._getFoldersWithLevel(dirTree(this.rootDir), this.level, 0, []);
+      if (this.autoDiscoverNewSubDirs) {
+        let dirsWithLevel =
+          this._getFoldersWithLevel(dirTree(this.rootDir), this.level, 0, []);
 
-      for (let dir of dirsWithLevel) {
-        if ( ! this.activatedWatches[dir]) {
-          this._activateWatch(dir.path, this.defaultLimitMB);
+        for (let dir of dirsWithLevel) {
+          if ( ! this.activatedWatches[dir]) {
+            this._activateWatch(dir.path, this.defaultLimitMB);
+          }
         }
       }
 

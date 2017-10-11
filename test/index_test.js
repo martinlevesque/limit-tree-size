@@ -1,6 +1,6 @@
 const expect = require('expect.js');
 const fs = require("fs");
-const LimitDirs = require("../index");
+const LimitTreeSize = require("../index");
 const proc = require('child_process');
 const path = require('path');
 const rmDir = require("rimraf");
@@ -62,7 +62,7 @@ async function clearTest() {
   }
 }
 
-describe('LimitDirs', function() {
+describe('LimitTreeSize', function() {
 
   this.timeout(120000);
 
@@ -82,7 +82,7 @@ describe('LimitDirs', function() {
       genDirFor("./test/repos-test/websites/user1/website1/test.txt");
       genDirFor("./test/repos-test/websites/user2/website2/test.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           "rootDir": "./test/repos-test/websites/",
           "level": 2,
@@ -117,7 +117,7 @@ describe('LimitDirs', function() {
       genDirFor("./test/repos-test/websites/user1/website1/test.txt");
       genDirFor("./test/repos-test/websites/user2/website2/test.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           "rootDir": "./test/repos-test/websites/",
           "level": 2,
@@ -152,7 +152,7 @@ describe('LimitDirs', function() {
 
       genDirFor("./test/repos-test/basic/small-file.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           //"rootDir": "/home/martin/dummy/",
           //"level": 2,
@@ -180,7 +180,7 @@ describe('LimitDirs', function() {
 
       genDirFor("./test/repos-test/basic-limited/test.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           //"rootDir": "/home/martin/dummy/",
           //"level": 2,
@@ -210,7 +210,7 @@ describe('LimitDirs', function() {
 
       genDirFor("./test/repos-test/small-file-added-after-init/test.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           //"rootDir": "/home/martin/dummy/",
           //"level": 2,
@@ -242,7 +242,7 @@ describe('LimitDirs', function() {
 
       genDirFor("./test/repos-test/big-file-added-after-init/test.txt");
 
-      const dirLimiter = new LimitDirs(
+      const dirLimiter = new LimitTreeSize(
         {
           //"rootDir": "/home/martin/dummy/",
           //"level": 2,
@@ -251,7 +251,7 @@ describe('LimitDirs', function() {
             "limitMB": 5 / 1000
           }],
           "autoDiscoverNewSubDirs": false,
-          //"intervalAutoScan": 3,
+          "intervalAutoScan": 3,
           "defaultLimitMB": 1,
           "verbose": false
         });
