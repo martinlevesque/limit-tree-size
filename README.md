@@ -18,7 +18,7 @@ npm install limit-tree-size --save
 First we need to instantiate a LimitDirs:
 
 ```
-const LimitTreeSize = require("limit-dirs");
+const LimitTreeSize = require("limit-tree-size");
 
 const dirLimiter = new LimitTreeSize(
   {

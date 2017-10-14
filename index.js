@@ -103,9 +103,14 @@ class LimitTreeSize {
         / (Object.keys(this.activatedWatches).length * 1.0)
 
       for (let dir of Object.keys(this.activatedWatches)) {
-        let sizeMB = (await this._folderSize(dir)).size / 1000 / 1000;
-        await this._checkAndCleanInitFolder(dir, sizeMB, this.activatedWatches[dir]);
-        await this._timeout(intBetweenDirCheck);
+        if ( ! fs.existsSync(dir)) {
+          this._log("Deactivated dir " + dir);
+          delete this.activatedWatches[dir];
+        } else {
+          let sizeMB = (await this._folderSize(dir)).size / 1000 / 1000;
+          await this._checkAndCleanInitFolder(dir, sizeMB, this.activatedWatches[dir]);
+          await this._timeout(intBetweenDirCheck);
+        }
       }
 
     } catch(err) {
