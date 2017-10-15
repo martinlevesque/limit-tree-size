@@ -6,7 +6,7 @@ const LimitTreeSize = require("../index");
 const commander = require("commander");
 
 commander
-    .version("1.0.3");
+    .version("1.0.4");
 
 commander
   .command('launch')

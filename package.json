@@ -1,6 +1,6 @@
 {
   "name": "limit-tree-size",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Limit tree size",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martinlevesque/limit-dirs.git"
+    "url": "git+https://github.com/martinlevesque/limit-tree-size.git"
   },
   "keywords": [
     "directory",
