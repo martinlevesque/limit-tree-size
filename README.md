@@ -97,7 +97,10 @@ const dirLimiter = new LimitTreeSize(
     "callbackBeginDeletion": function() { console.log("begin deletion"); },
     "callbackEndDeletion": function() { console.log("end deletion"); },
     "callbackOnDelete": function(filename) { console.log(filename + " deleted"); },
-    "callbackOnCheckSizes": function() { console.log("checking sizes..."); }
+    "callbackOnCheckSizes":
+      function(dir, currentSize, limitSize) {
+        console.log("checking sizes for ... " + dir); 
+      }
   });
 
 dirLimiter.launch();
