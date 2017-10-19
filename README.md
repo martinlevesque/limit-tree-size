@@ -3,7 +3,8 @@
 [![NPM](https://nodei.co/npm/limit-tree-size.png)](https://nodei.co/npm/limit-tree-size/)
 
 limit-tree-size allows to limit directories sizes by polling a set of predefined
-folder paths.
+folder paths. When the size of a checked folder is higher than its limit, files
+are deleted in order to keep the size below/equal its limit.
 
 ## LimitTreeSize Class Usage
 
@@ -72,6 +73,35 @@ these directories to 5 MB. So let's say we now have the following tree:
 Both website1 and website2 will be limited to 5 MB each. The level represents
 the number of children steps. With level 1, it would look for the direct
 subdirectories.
+
+## Callback Events
+
+Some callbacks can be defined for different event types:
+
+* callbackBeginDeletion: When the deletion of files process begins.
+* callbackEndDeletion: When the deletion of files process ends.
+* callbackOnDelete(filename): When a file (filename) is deleted.
+* callbackOnCheckSizes: When the process to check the sizes begins.
+
+Example usage:
+
+```
+const dirLimiter = new LimitTreeSize(
+  {
+    "rootDir": "./test/repos-test/websites/",
+    "level": 2,
+    "autoDiscoverNewSubDirs": true,
+    "intervalAutoScan": 3, // in seconds
+    "defaultLimitMB": 5,
+    "verbose": false,
+    "callbackBeginDeletion": function() { console.log("begin deletion"); },
+    "callbackEndDeletion": function() { console.log("end deletion"); },
+    "callbackOnDelete": function(filename) { console.log(filename + " deleted"); },
+    "callbackOnCheckSizes": function() { console.log("checking sizes..."); }
+  });
+
+dirLimiter.launch();
+```
 
 ## Command Line Interface
 
