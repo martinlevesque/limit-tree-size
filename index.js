@@ -13,6 +13,11 @@ class LimitTreeSize {
     this.defaultLimitMB = options.defaultLimitMB || 1000000;
     this.activatedWatches = {};
     this.verbose = options.verbose || false;
+    this.callbackBeginDeletion = options.callbackBeginDeletion || function() {};
+    this.callbackEndDeletion = options.callbackEndDeletion || function() {};
+    this.callbackOnDelete = options.callbackOnDelete || function(/* filename */) {};
+    this.callbackOnCheckSizes = options.callbackOnCheckSizes ||
+      function(/* path, currentSizeMB, limitSizeMB */) {};
   }
 
   // begin starting the watch methods to the limited directories
@@ -40,6 +45,8 @@ class LimitTreeSize {
     if (this.objIntervalAutoScan) {
       clearInterval(this.objIntervalAutoScan);
     }
+
+    this.activatedWatches = {};
   }
 
   _log(msg) {
@@ -173,7 +180,17 @@ class LimitTreeSize {
   }
 
   async _checkAndCleanInitFolder(root, sizeMB, limitMB) {
+    this.callbackOnCheckSizes(root, sizeMB, limitMB);
+
     try {
+
+      let requiresDeletion = false;
+
+      if (sizeMB > limitMB) {
+        this.callbackBeginDeletion();
+        requiresDeletion = true;
+      }
+
       while (sizeMB > limitMB) {
         let file = this._getFirstFileFromRoot(root);
 
@@ -181,10 +198,16 @@ class LimitTreeSize {
           break;
         }
 
+        this.callbackOnDelete(file.path);
         await this._deleteFile(file.path);
 
         sizeMB = (await this._folderSize(root)).size / 1000 / 1000;
       }
+
+      if (requiresDeletion) {
+        this.callbackEndDeletion();
+      }
+
     } catch(err) {
       this._log("issue cleaning " + root + ": " + err);
     }

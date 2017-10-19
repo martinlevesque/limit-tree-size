@@ -269,6 +269,120 @@ describe('LimitTreeSize', function() {
       }, 10000);
     });
 
+    it("callbackOnCheckSizes", function(done) {
+
+      genDirFor("./test/repos-test/big-file-added-after-init/test.txt");
+
+      const dirLimiter = new LimitTreeSize(
+        {
+          //"rootDir": "/home/martin/dummy/",
+          //"level": 2,
+          "forceDirs": [{
+            "dir": "./test/repos-test/big-file-added-after-init/",
+            "limitMB": 5 / 1000
+          }],
+          "autoDiscoverNewSubDirs": false,
+          "intervalAutoScan": 3,
+          "defaultLimitMB": 1,
+          "verbose": false,
+          "callbackOnCheckSizes": function() {
+            dirLimiter.stop();
+            done();
+          }
+        });
+
+      dirLimiter.launch();
+    });
+
+    it("callbackBeginDeletion", function(done) {
+
+      genDirFor("./test/repos-test/big-file-added-after-init/test.txt");
+
+      const dirLimiter = new LimitTreeSize(
+        {
+          //"rootDir": "/home/martin/dummy/",
+          //"level": 2,
+          "forceDirs": [{
+            "dir": "./test/repos-test/big-file-added-after-init/",
+            "limitMB": 5 / 1000
+          }],
+          "autoDiscoverNewSubDirs": false,
+          "intervalAutoScan": 3,
+          "defaultLimitMB": 1,
+          "verbose": false,
+          "callbackBeginDeletion": function() {
+            dirLimiter.stop();
+            done();
+          }
+        });
+
+      dirLimiter.launch();
+
+      setTimeout(function() {
+        genAndWriteFile(10000, "./test/repos-test/big-file-added-after-init/test.txt");
+      }, 3000);
+    });
+
+    it("callbackEndDeletion", function(done) {
+
+      genDirFor("./test/repos-test/big-file-added-after-init/test.txt");
+
+      const dirLimiter = new LimitTreeSize(
+        {
+          //"rootDir": "/home/martin/dummy/",
+          //"level": 2,
+          "forceDirs": [{
+            "dir": "./test/repos-test/big-file-added-after-init/",
+            "limitMB": 5 / 1000
+          }],
+          "autoDiscoverNewSubDirs": false,
+          "intervalAutoScan": 3,
+          "defaultLimitMB": 1,
+          "verbose": false,
+          "callbackEndDeletion": function() {
+            dirLimiter.stop();
+            done();
+          }
+        });
+
+      dirLimiter.launch();
+
+      setTimeout(function() {
+        genAndWriteFile(10000, "./test/repos-test/big-file-added-after-init/test.txt");
+      }, 3000);
+    });
+
+    it("callbackOnDelete", function(done) {
+
+      genDirFor("./test/repos-test/big-file-added-after-init/test.txt");
+
+      const dirLimiter = new LimitTreeSize(
+        {
+          //"rootDir": "/home/martin/dummy/",
+          //"level": 2,
+          "forceDirs": [{
+            "dir": "./test/repos-test/big-file-added-after-init/",
+            "limitMB": 5 / 1000
+          }],
+          "autoDiscoverNewSubDirs": false,
+          "intervalAutoScan": 3,
+          "defaultLimitMB": 1,
+          "verbose": false,
+          "callbackOnDelete": function(file) {
+            expect(file.indexOf("big-file-added-after-init")).to.not.equal(-1);
+            expect(file.indexOf("test.txt")).to.not.equal(-1);
+            dirLimiter.stop();
+            done();
+          }
+        });
+
+      dirLimiter.launch();
+
+      setTimeout(function() {
+        genAndWriteFile(10000, "./test/repos-test/big-file-added-after-init/test.txt");
+      }, 3000);
+    });
+
   });
 
   afterEach(function(done) {

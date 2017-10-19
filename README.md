@@ -5,7 +5,7 @@
 limit-tree-size allows to limit directories sizes by polling a set of predefined
 folder paths.
 
-## LimitDirs Class Usage
+## LimitTreeSize Class Usage
 
 ### Install
 
